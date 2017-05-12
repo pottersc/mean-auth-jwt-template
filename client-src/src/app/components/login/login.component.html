@@ -1,3 +1,24 @@
-<p>
-  login works!
-</p>
+<h2 class="page-header">Login</h2>
+
+<form  novalidate (submit)="onLoginSubmit()" #f="ngForm">
+
+  <div class="form-group" [ngClass]="{'has-error': email.invalid && (email.dirty || email.touched),'has-success': email.valid && (email.dirty || email.touched)}">
+    <label for="email">Email</label>
+    <input type="email" id="email" class="form-control" name="email" [(ngModel)]="user.email" required pattern="[^ @]*@[^ @]*" #email="ngModel">
+    <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+      <div [hidden]="!email.errors.required">Email is required</div>
+      <div [hidden]="!email.errors.pattern">Email must contain at least the @ character</div>
+    </div>
+  </div>
+
+  <div class="form-group" [ngClass]="{'has-error': password.invalid && (password.dirty || password.touched), 'has-success': password.valid && (password.dirty || password.touched) }">
+    <label for="password">Password</label>
+    <input type="password" id="password" class="form-control" name="password" [(ngModel)]="user.password" required minlength="8" #password="ngModel">
+    <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+      <p [hidden]="!password.errors.required">Password is required</p>
+      <p [hidden]="!password.errors.minlength">Password must be at least 8 characters long</p>
+    </div>
+  </div>
+
+  <input type="submit" class="btn btn-primary" value="Login">
+</form>
