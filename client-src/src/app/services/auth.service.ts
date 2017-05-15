@@ -12,6 +12,7 @@ export class AuthService {
   user: User = new User();
 
   constructor(private http:Http, private endpointService: EndpointService) {
+    this.loadToken();
   }
 
   registerUser(user: User){
@@ -29,17 +30,7 @@ export class AuthService {
   }
 
   getUserName(){
-  //  console.log(this.user);
-  //  console.log(this.user.getFullName());
-    return this.user? 'this.user.getFullName()':'Not Logged In';
-  }
-  getProfile(){
-    let headers = new Headers();
-    this.loadToken();
-    headers.append('Authorization', this.authToken);
-    headers.append('Content-Type','application/json');
-    return this.http.get(this.endpointService.serverEndpoint('/users/profile'),{headers: headers})
-      .map(res => res.json());
+    return (this.user && this.user instanceof User)?this.user.getFullName():'';
   }
 
   storeUserData(token, user: User){
@@ -52,12 +43,10 @@ export class AuthService {
   loadToken(){
     const token = localStorage.getItem('id_token');
     this.authToken = token;
-    this.user = new User()
-    Object.assign(this.user, localStorage.getItem('user'))
+    this.user = Object.assign(new User(), JSON.parse(localStorage.getItem('user')));
   }
 
   loggedIn(){
-    console.log('user='+ JSON.stringify(this.user));
     return tokenNotExpired('id_token');
   }
 
