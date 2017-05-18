@@ -29,6 +29,15 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  getProfile(){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');
+    return this.http.get(this.endpointService.serverEndpoint('/users/profile'), {headers: headers})
+      .map(res => res.json());
+  }
+
   getUserName(){
     return (this.user && this.user instanceof User)?this.user.getFullName():'';
   }
@@ -41,11 +50,10 @@ export class AuthService {
   }
 
   loadToken(){
-    const token = localStorage.getItem('id_token');
-    this.authToken = token;
+    this.authToken = localStorage.getItem('id_token');
     this.user = Object.assign(new User(), JSON.parse(localStorage.getItem('user')));
   }
-
+  
   loggedIn(){
     return tokenNotExpired('id_token');
   }
