@@ -1,7 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # secret config files
-/server/config/config-private.ts
+/server/config/config-private.js
 
 # compiled output
 /client/dist
