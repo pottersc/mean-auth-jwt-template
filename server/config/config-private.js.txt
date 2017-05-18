@@ -1,0 +1,11 @@
+module.exports = {
+    // use below syntax if connecting to local mongo
+    database: 'mongodb://localhost:27017/YOUR_DB_NAME',
+
+    // OR use below syntax if connecting to mlab mongo
+    // database: 'mongodb://YOUR_USERNAME:YOUR_PASSWORD@ds133961.mlab.com:33961/YOUR_DB_NAME',
+
+    // specify your private JWT secret
+    secret: 'YOUR_SECRET'
+}
+
