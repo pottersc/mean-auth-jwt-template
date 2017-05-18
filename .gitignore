@@ -3,6 +3,7 @@
 # secret config files
 /server/config/config-private.js
 
+
 # compiled output
 /client/dist
 /client/tmp
