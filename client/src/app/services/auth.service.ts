@@ -53,7 +53,7 @@ export class AuthService {
     this.authToken = localStorage.getItem('id_token');
     this.user = Object.assign(new User(), JSON.parse(localStorage.getItem('user')));
   }
-  
+
   loggedIn(){
     return tokenNotExpired('id_token');
   }
